@@ -6,7 +6,7 @@ jobs:
   get_files:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.get-files }}
+      matrix: ${{ steps.get-files.matrix }}
     steps:
       - uses: action/checkout@v2
       - id: get-files
@@ -17,11 +17,11 @@ jobs:
   check_files:
     runs-on: ubuntu-latest
     strategy:
-      matrix: ${{ steps.get-files }}
+      matrix: ${{ steps.get-files.matrix }}
     steps:
       - name: check files
-      - run: grep -n $'\t' ${{ steps.get-files }} >> ${{ steps.get-files }}.log 2>&1
+      - run: grep -n $'\t' ${{ steps.get-files.matrix }} >> ${{ steps.get-files }}.log 2>&1
       - name: upload logs
         uses: actions/upload-artifact@v2
         with:
-          path: ${{ steps.get-files }}.log
+          path: ${{ steps.get-files.matrix }}.log
