@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: get-files
-        uses: action/checkout@v2.0
+        uses: actions/checkout@v2
       - id: get-files
         run: |
           git diff HEAD HEAD~1 --name-only
