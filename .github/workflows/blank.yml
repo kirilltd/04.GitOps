@@ -8,22 +8,20 @@ jobs:
     steps:
       - name: get-files
         uses: action/checkout@v2
-
       - id: get-files
         run: |
-          files='${{ git diff HEAD HEAD~1 --name-only }}'
-          echo ::set-output name=files::${files}
+          git diff HEAD HEAD~1 --name-only
   
-  check_files:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        files: ${{ get-files.output.files }}
-    steps:
-      - name: check files
-        uses: actions/checkout@v2
-      - run: grep -n $'\t' ${{ get-files.output.files }} >> ${{ get-files.output.files }}.log 2>&1
-      - name: upload logs
-        uses: actions/upload-artifact@v2
-        with:
-          path: ${{ get-files.output.files }}.log
+#   check_files:
+#     runs-on: ubuntu-latest
+#     strategy:
+#       matrix:
+#         files: ${{ get-files.output.files }}
+#     steps:
+#       - name: check files
+#         uses: actions/checkout@v2
+#       - run: grep -n $'\t' ${{ get-files.output.files }} >> ${{ get-files.output.files }}.log 2>&1
+#       - name: upload logs
+#         uses: actions/upload-artifact@v2
+#         with:
+#           path: ${{ get-files.output.files }}.log
