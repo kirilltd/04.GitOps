@@ -5,23 +5,24 @@ on: [push]
 jobs:
   get_files:
     runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.get-files.matrix }}
     steps:
       - uses: action/checkout@v2
+      - name: get-files
       - id: get-files
-      run: |
-        matrix=$(git diff HEAD HEAD~1 --name-only)
-        echo $matrix
+        run: |
+          files='${{ git diff HEAD HEAD~1 --name-only }}'
+          echo ::set-output name=files::${files}
   
   check_files:
     runs-on: ubuntu-latest
     strategy:
-      matrix: ${{ steps.get-files.matrix }}
+      matrix:
+        files: ${{ get-files.output.files }}
     steps:
+      - uses: actions/checkout@v2
       - name: check files
-      - run: grep -n $'\t' ${{ steps.get-files.matrix }} >> ${{ steps.get-files }}.log 2>&1
+        run: grep -n $'\t' ${{ get-files.output.files }} >> ${{ get-files.output.files }}.log 2>&1
       - name: upload logs
         uses: actions/upload-artifact@v2
         with:
-          path: ${{ steps.get-files.matrix }}.log
+          path: ${{ get-files.output.files }}.log
