@@ -12,7 +12,7 @@ jobs:
           fetch-depth: 0
       - name: get updated files
         run: |
-          git log
+          #git log
           git diff HEAD HEAD~1 --name-only
   
   check_files:
