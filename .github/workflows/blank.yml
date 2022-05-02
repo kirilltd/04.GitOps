@@ -31,10 +31,9 @@ jobs:
       - name: check file
         run: |
           echo ${{ matrix.files }}
-          # ls -la
-          # grep -n $'\t' ${{ matrix.files }}
-          # grep -n $'\t' ${{ matrix.files }} >> ${{ matrix.files }}.log 2>&1
-      # - name: upload logs
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     path: ${{ matrix.files }}.log
+          grep -n $'\t' ${{ matrix.files }}
+          grep -n $'\t' ${{ matrix.files }} >> ${{ matrix.files }}.log
+      - name: upload logs
+        uses: actions/upload-artifact@v2
+        with:
+          path: ${{ matrix.files }}.log
