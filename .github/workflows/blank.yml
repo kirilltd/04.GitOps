@@ -14,7 +14,8 @@ jobs:
         id: files
         run: |
           #git log
-          files=$(git diff HEAD HEAD~1 --name-only)
+          apt-get install jq
+          files=$(git diff HEAD HEAD~3 --name-only | grep -v "workflow" | jq -R -s -c 'split("\n")[:-1]')
           echo "::set-output name=files::$files"
     outputs:
       files: ${{ steps.files.outputs.files }}
