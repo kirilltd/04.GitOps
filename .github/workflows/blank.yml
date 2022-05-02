@@ -13,17 +13,9 @@ jobs:
       - name: get updated files
         id: files
         run: |
-          file_list=`git diff HEAD HEAD~1 --name-only | grep -v "workflow"`
-          echo $file_list
-          if [ -z "file_list" ]
-          then
-            echo "Changed files not found"
-          else
-            sudo apt-get install jq
-            json_file_list=$(git diff HEAD HEAD~13 --name-only | grep -v "workflow" | jq -R -s -c 'split("\n")[:-1]')
-            echo $json_file_list
-            echo "::set-output name=files::$json_file_list"
-          fi
+          json_file_list=$(git diff HEAD HEAD~1 --name-only | jq -R -s -c 'split("\n")[:-1]')
+          echo $json_file_list
+          echo "::set-output name=files::$json_file_list"
     outputs:
       files: ${{ steps.files.outputs.files }}
 
