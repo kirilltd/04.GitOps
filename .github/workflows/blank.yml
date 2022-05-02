@@ -6,9 +6,11 @@ jobs:
   get_files:
     runs-on: ubuntu-latest
     steps:
-      - name: get-files
+      - name: checkout
         uses: actions/checkout@v3
+        with:
           fetch-depth: 0
+      - name: get updated files
         run:
           git log
           git diff HEAD HEAD~1 --name-only
