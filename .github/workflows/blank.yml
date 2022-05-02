@@ -7,13 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: get-files
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
           fetch-depth: 0
-      - id: get-files
-        run: |
-          git log
-          git diff HEAD HEAD~1 --name-only
-  
+        run: git log
+
 #   check_files:
 #     runs-on: ubuntu-latest
 #     strategy:
