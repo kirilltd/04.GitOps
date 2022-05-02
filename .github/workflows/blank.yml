@@ -13,7 +13,7 @@ jobs:
       - name: get updated files
         id: files
         run: |
-          file_list=`git diff HEAD HEAD~1 --name-only | grep -v "workflow"`
+          file_list=`git diff HEAD HEAD~3 --name-only | grep -v "workflow"`
           if [ -z "file_list" ]
           then
             echo "Changed files not found"
