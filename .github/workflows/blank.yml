@@ -31,7 +31,7 @@ jobs:
       - name: check file
         run: |
           echo ${{ matrix.files }}
-          if [ -z grep -n $'\t' ${{ matrix.files }} ]
+          if [ -z "grep -n $'\t' ${{ matrix.files }}" ]
           then
             echo "Tabs not found" >> ${{ matrix.files }}.log
           else
