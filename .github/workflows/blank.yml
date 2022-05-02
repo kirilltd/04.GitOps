@@ -11,7 +11,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: get updated files
-        run:
+        run: |
           git log
           git diff HEAD HEAD~1 --name-only
   
