@@ -14,6 +14,7 @@ jobs:
         id: files
         run: |
           file_list=`git diff HEAD HEAD~1 --name-only | grep -v "workflow"`
+          echo $file_list
           if [ -z "file_list" ]
           then
             echo "Changed files not found"
