@@ -1,2 +1,0 @@
-line1   with tab
-line2 without tab
