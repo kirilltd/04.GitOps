@@ -6,26 +6,23 @@ jobs:
   get_files:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
+      - name: get-files
         uses: actions/checkout@v3
-        with:
           fetch-depth: 0
-      - name: get_logs
-        run: git diff HEAD HEAD~1 --name-only
-            
-    
- 
-
-#   check_files:
-#     runs-on: ubuntu-latest
-#     strategy:
-#       matrix:
-#         files: ${{ get-files.output.files }}
-#     steps:
-#       - name: check files
-#         uses: actions/checkout@v2
-#       - run: grep -n $'\t' ${{ get-files.output.files }} >> ${{ get-files.output.files }}.log 2>&1
-#       - name: upload logs
-#         uses: actions/upload-artifact@v2
-#         with:
-#           path: ${{ get-files.output.files }}.log
+        run:
+          git log
+          git diff HEAD HEAD~1 --name-only
+  
+  check_files:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        files: [file1.txt, file2.txt, file3.txt]
+    steps:
+      - name: check files
+        uses: actions/checkout@v3
+      - run: grep -n $'\t' ${{ matrix.files }} >> ${{ matrix.files }}.log 2>&1
+      - name: upload logs
+        uses: actions/upload-artifact@v2
+        with:
+          path: ${{ matrix.files }}.log
