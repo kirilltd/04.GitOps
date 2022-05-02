@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        files: ${{ fromJson(needs.get_files.outputs.files) }}
+        files: ${{ fromJson(needs.get_updated_files.outputs.files) }}
     steps:
       - name: checkout
         uses: actions/checkout@v3
