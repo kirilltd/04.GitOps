@@ -33,7 +33,7 @@ jobs:
           echo ${{ matrix.files }}
           if [ -z grep -n $'\t' ${{ matrix.files }} ]
           then
-            echo "tabs not found" >> ${{ matrix.files }}.log
+            echo "Tabs not found" >> ${{ matrix.files }}.log
           else
             grep -n $'\t' ${{ matrix.files }}
             grep -n $'\t' ${{ matrix.files }} >> ${{ matrix.files }}.log
