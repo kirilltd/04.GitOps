@@ -22,7 +22,7 @@ jobs:
             json_file_list=$(echo $file_list | jq -R -s -c 'split("\n")[:-1]')
             echo $json_file_list
             echo "::set-output name=files::$json_file_list"
-          if
+          fi
     outputs:
       files: ${{ steps.files.outputs.files }}
 
