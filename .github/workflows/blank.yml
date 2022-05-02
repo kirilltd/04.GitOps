@@ -22,8 +22,9 @@ jobs:
       matrix:
         files: [file1.txt, file2.txt, file3.txt]
     steps:
-      - name: check files
+      - name: checkout
         uses: actions/checkout@v3
+      - name: check file
       - run: |
           ls -la
           grep -n $'\t' ${{ matrix.files }} >> ${{ matrix.files }}.log 2>&1
