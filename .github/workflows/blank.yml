@@ -30,13 +30,14 @@ jobs:
         uses: actions/checkout@v3
       - name: check file
         run: |
-          echo ${{ matrix.files }}
-          if [ -z grep -n $'\t' ${{ matrix.files }} ]
+          file=`echo ${{ matrix.files }}`
+          echo $file
+          if [ -z `grep -n $'\t' $file` ]
           then
-            echo "tabs not found" >> ${{ matrix.files }}.log
+              echo "Tabs not found" >> "$file".log
           else
-            grep -n $'\t' ${{ matrix.files }}
-            grep -n $'\t' ${{ matrix.files }} >> ${{ matrix.files }}.log
+              grep -n $'\t' "$file"
+              grep -n $'\t' "$file" >> "$file".log
           fi
       - name: upload logs
         uses: actions/upload-artifact@v2
