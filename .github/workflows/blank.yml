@@ -8,6 +8,7 @@ jobs:
     steps:
       - name: get-files
         uses: actions/checkout@v2
+          fetch-depth: 0
       - id: get-files
         run: |
           git log
