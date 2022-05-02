@@ -3,7 +3,7 @@ name: Find tabs
 on: [push]
 
 jobs:
-  get_files:
+  get_updated_files:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
@@ -13,17 +13,21 @@ jobs:
       - name: get updated files
         id: files
         run: |
-          #git log
-          sudo apt-get install jq
-          files=$(git diff HEAD HEAD~3 --name-only | grep -v "workflow" | jq -R -s -c 'split("\n")[:-1]')
-          echo $files
-          echo "::set-output name=files::$files"
-
+          file_list=`$(git diff HEAD HEAD~1 --name-only | grep -v "workflow"`
+          if [ -z "file_list" ]
+          then
+            echo "Changed files not found"
+          else
+            sudo apt-get install jq
+            json_file_list=$(echo $file_list | jq -R -s -c 'split("\n")[:-1]')
+            echo $json_file_list
+            echo "::set-output name=files::$json_file_list"
+          if
     outputs:
       files: ${{ steps.files.outputs.files }}
 
   check_files:
-    needs: get_files
+    needs: get_updated_files
     runs-on: ubuntu-latest
     strategy:
       matrix:
